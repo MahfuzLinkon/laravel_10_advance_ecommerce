@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MyCommerceController;
@@ -25,4 +27,14 @@ Route::get('/view-cart', [CartController::class, 'index'])->name('view-cart');
 // Checkout Route
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 
+// Admin Auth Route
+Route::get('/admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
+Route::post('/admin/login', [AdminAuthController::class, 'store'])->name('admin.login');
+
+Route::group(['middleware' => ['admin.auth'], 'prefix' => 'admin' ,'as' => 'admin.'], function (){
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::post('/logout', [AdminAuthController::class, 'destroy'])->name('logout');
+});
+
+Route::get('/admin/register', [AdminAuthController::class, 'create'])->name('admin.register');
 
