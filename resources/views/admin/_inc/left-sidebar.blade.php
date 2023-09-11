@@ -11,7 +11,7 @@
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="waves-effect">
                         <i class="bx bx-home-circle"></i>
-                        <span key="t-dashboards">Dashboards</span>
+                        <span key="t-dashboards">Dashboard</span>
                     </a>
                 </li>
 
@@ -23,8 +23,8 @@
                         <span key="t-ecommerce">Category</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="ecommerce-products.html" key="t-products">Create</a></li>
-                        <li><a href="ecommerce-product-detail.html" key="t-product-detail">Manage</a></li>
+                        <li><a href="{{ route('admin.categories.create') }}" key="t-products">Create Category</a></li>
+                        <li><a href="{{ route('admin.categories.index') }}" key="t-product-detail">Manage Category</a></li>
                     </ul>
                 </li>
 

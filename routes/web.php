@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MyCommerceController;
@@ -34,6 +35,11 @@ Route::post('/admin/login', [AdminAuthController::class, 'store'])->name('admin.
 Route::group(['middleware' => ['admin.auth'], 'prefix' => 'admin' ,'as' => 'admin.'], function (){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AdminAuthController::class, 'destroy'])->name('logout');
+    // Category Route
+    Route::resource('categories', CategoryController::class)->parameters([
+        'categories' => 'category:slug',
+    ]);
+    Route::get('admin/categories/status/{category:slug}', [CategoryController::class, 'status'])->name('categories.status');
 });
 
 Route::get('/admin/register', [AdminAuthController::class, 'create'])->name('admin.register');
