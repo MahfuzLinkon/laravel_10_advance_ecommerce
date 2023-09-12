@@ -21,7 +21,7 @@ if (!function_exists('get_formatted_date')){
 } // End Function
 
 // Upload Image Using Image Intervention
-function uploadImage($imageObject, $directory, $existingUrl = null, $width =null, $height =null) : string
+function uploadImage($imageObject, $directory, $existingUrl = null, $width =null, $height =null)
 {
     if ($imageObject){
         if ($existingUrl){

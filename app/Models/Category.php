@@ -19,7 +19,6 @@ class Category extends Model
     ];
 
     public static function updateOrCreateCategory($request, $id = null){
-
         Category::updateOrCreate(['id' => $id], [
            'name' => $request->name,
            'slug' => join('-', explode(' ', strtolower($request->name))),
@@ -29,6 +28,11 @@ class Category extends Model
             'updated_by' => isset($id) ? Auth::guard('admin')->user()->id : null,
         ]);
     }
+
+
+
+
+
 
 
 }

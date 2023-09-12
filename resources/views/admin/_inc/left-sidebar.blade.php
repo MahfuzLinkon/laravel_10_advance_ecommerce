@@ -31,11 +31,11 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-bitcoin"></i>
-                        <span key="t-crypto">Sub category</span>
+                        <span key="t-crypto">SubCategory</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="crypto-wallet.html" key="t-wallet">Create</a></li>
-                        <li><a href="crypto-buy-sell.html" key="t-buy">Manage</a></li>
+                        <li><a href="{{ route('admin.sub-categories.create') }}" key="t-wallet">Create Subcategory</a></li>
+                        <li><a href="{{ route('admin.sub-categories.index') }}" key="t-buy">Manage Subcategory</a></li>
                     </ul>
                 </li>
 
