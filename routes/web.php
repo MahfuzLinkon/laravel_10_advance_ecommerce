@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\CartController;
@@ -46,6 +47,13 @@ Route::group(['middleware' => ['admin.auth'], 'prefix' => 'admin' ,'as' => 'admi
         'sub-categories' => 'sub-category:slug'
     ]);
     Route::get('/sub-category/status/{subcategory}', [SubCategoryController::class, 'status'])->name('sub-categories.status');
+    // Brand Route
+    Route::resource('brands', BrandController::class)->parameters([
+        'brands' => 'brand:slug'
+    ]);
+    Route::get('brands/status/{brand:slug}', [BrandController::class, 'status'])->name('brands.status');
+    // Unit Route
+
 });
 
 Route::get('/admin/register', [AdminAuthController::class, 'create'])->name('admin.register');

@@ -45,8 +45,19 @@
                         <span key="t-email">Brand</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox.html" key="t-inbox">Create</a></li>
-                        <li><a href="email-read.html" key="t-read-email">Manage</a></li>
+                        <li><a href="{{ route('admin.brands.create') }}" key="t-inbox">Create Brand</a></li>
+                        <li><a href="{{ route('admin.brands.index') }}" key="t-read-email">Manage Brand</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-analyse"></i>
+                        <span key="t-email">Unit</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('admin.brands.create') }}" key="t-inbox">Create Unit</a></li>
+                        <li><a href="{{ route('admin.brands.index') }}" key="t-read-email">Manage Unit</a></li>
                     </ul>
                 </li>
 
