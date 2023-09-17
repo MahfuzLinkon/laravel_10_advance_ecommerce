@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MyCommerceController;
@@ -37,22 +38,30 @@ Route::post('/admin/login', [AdminAuthController::class, 'store'])->name('admin.
 Route::group(['middleware' => ['admin.auth'], 'prefix' => 'admin' ,'as' => 'admin.'], function (){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AdminAuthController::class, 'destroy'])->name('logout');
+
     // Category Route
     Route::resource('categories', CategoryController::class)->parameters([
         'categories' => 'category:slug',
     ]);
     Route::get('categories/status/{category:slug}', [CategoryController::class, 'status'])->name('categories.status');
+
     // SubCategory Route
     Route::resource('sub-categories', SubCategoryController::class)->parameters([
         'sub-categories' => 'sub-category:slug'
     ]);
     Route::get('/sub-category/status/{subcategory}', [SubCategoryController::class, 'status'])->name('sub-categories.status');
+
     // Brand Route
     Route::resource('brands', BrandController::class)->parameters([
         'brands' => 'brand:slug'
     ]);
     Route::get('brands/status/{brand:slug}', [BrandController::class, 'status'])->name('brands.status');
+
     // Unit Route
+    Route::resource('units', UnitController::class)->parameters([
+        'units' => 'unit:slug'
+    ]);
+    Route::get('units/status/{unit:slug}', [UnitController::class, 'status'])->name('units.status');
 
 });
 
