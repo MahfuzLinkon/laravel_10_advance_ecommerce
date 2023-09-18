@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\CartController;
@@ -62,6 +63,10 @@ Route::group(['middleware' => ['admin.auth'], 'prefix' => 'admin' ,'as' => 'admi
         'units' => 'unit:slug'
     ]);
     Route::get('units/status/{unit:slug}', [UnitController::class, 'status'])->name('units.status');
+
+    // Product all route
+    Route::resource('products', ProductController::class);
+
 
 });
 

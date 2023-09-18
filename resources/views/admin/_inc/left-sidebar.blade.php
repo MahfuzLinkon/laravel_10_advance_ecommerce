@@ -67,7 +67,7 @@
                         <span key="t-email">Product</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#" key="t-inbox">Create Product</a></li>
+                        <li><a href="{{ route('admin.products.create') }}" key="t-inbox">Create Product</a></li>
                         <li><a href="#" key="t-read-email">Manage Product</a></li>
                     </ul>
                 </li>

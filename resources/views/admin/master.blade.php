@@ -74,6 +74,20 @@
 
 <!-- App js -->
 <script src="{{ asset('/') }}admin/assets/js/app.js"></script>
+
+{{--Ck Editor--}}
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( editor => {
+            console.log( editor );
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+
 </body>
 
 
