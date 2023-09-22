@@ -87,7 +87,7 @@
             console.error( error );
         } );
 </script>
-
+@yield('script')
 </body>
 
 

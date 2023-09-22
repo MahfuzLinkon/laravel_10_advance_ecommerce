@@ -68,7 +68,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin.products.create') }}" key="t-inbox">Create Product</a></li>
-                        <li><a href="#" key="t-read-email">Manage Product</a></li>
+                        <li><a href="{{ route('admin.products.index') }}" key="t-read-email">Manage Product</a></li>
                     </ul>
                 </li>
 

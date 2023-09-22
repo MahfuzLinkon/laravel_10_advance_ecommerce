@@ -65,9 +65,11 @@ Route::group(['middleware' => ['admin.auth'], 'prefix' => 'admin' ,'as' => 'admi
     Route::get('units/status/{unit:slug}', [UnitController::class, 'status'])->name('units.status');
 
     // Product all route
-    Route::resource('products', ProductController::class);
-
-
+    Route::resource('products', ProductController::class)->parameters([
+        'products' => 'product:slug'
+    ]);
+    Route::get('/get-sub-category', [ProductController::class, 'getSubcategory'])->name('get-sub-category');
+    Route::get('product/status/{product:slug}', [ProductController::class, 'status'])->name('products.status');
 });
 
 Route::get('/admin/register', [AdminAuthController::class, 'create'])->name('admin.register');

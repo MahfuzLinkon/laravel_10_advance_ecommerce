@@ -50,9 +50,7 @@
                                         <div class="col-sm-9">
                                             <select name="sub_category_id" id="sub_category_id" class="form-control">
                                                 <option selected disabled>--Select SubCategory--</option>
-                                                @foreach($sub_categories as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
+
                                             </select>
                                             @error('sub_category_id')
                                             <span class="text-danger">{{ $message }}</span>
@@ -232,4 +230,27 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $(document).on('change', '#category_id', function (){
+            const categoryId = $(this).val();
+            $.ajax({
+               url: "{{ route('admin.get-sub-category') }}",
+                method: 'GET',
+                dataType: "JSON",
+                data: {categoryId},
+                success: function (response){
+                   let option = '<option selected disabled>--Select SubCategory--</option>'
+                    // $.each(response, function (index, value){
+                    //     option += '<option value="'+value.id+'">'+ value.name +'</option>'
+                    // });
+                    $(response).each( function (index, value){
+                        option += '<option value="'+value.id+'">'+ value.name +'</option>'
+                    });
+                   $('#sub_category_id').empty().append(option);
+                }
+            });
+        });
+    </script>
 @endsection

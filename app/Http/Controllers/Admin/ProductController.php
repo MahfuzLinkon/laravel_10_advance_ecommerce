@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -17,7 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.product.index',[
+            'products' => Product::latest()->get(),
+        ]);
     }
 
     /**
@@ -27,10 +30,15 @@ class ProductController extends Controller
     {
         return view('admin.product.create', [
             'categories' => Category::where('status', 1)->get(),
-            'sub_categories' => SubCategory::where('status', 1)->get(),
             'brands' => Brand::where('status', 1)->get(),
             'units' => Unit::where('status', 1)->get(),
         ]);
+    }
+
+    public function getSubcategory(Request $request)
+    {
+        $subCategories = SubCategory::where('category_id', $request->categoryId)->get();
+        return response()->json($subCategories);
     }
 
     /**
@@ -69,7 +77,13 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit',[
+            'product' => $product,
+            'categories' => Category::where('status', 1)->get(),
+            'subCategories' => SubCategory::where('status', 1)->get(),
+            'brands' => Brand::where('status', 1)->get(),
+            'units' => Unit::where('status', 1)->get(),
+        ]);
     }
 
     /**
@@ -77,7 +91,34 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'category_id' => 'required',
+            'sub_category_id' => 'required',
+            'brand_id' => 'required',
+            'unit_id' => 'required',
+            'name' => ['required', Rule::unique('products')->ignore($product->id)],
+            'code' => ['required', Rule::unique('products')->ignore($product->id)],
+            'stock_amount' => 'required',
+            'regular_price' => 'required',
+            'selling_price' => 'required',
+            'short_description' => 'required',
+        ]);
+
+        Product::updateOrCreatedProduct($request, $product->id);
+        return redirect()->route('admin.products.index')->with('success', 'Product Updated Successfully!');
+    }
+
+    public function status(Product $product)
+    {
+        if ($product->status === 1){
+            $product->status = 0;
+            $message = 'Product Unpublished!';
+        }else{
+            $product->status = 1;
+            $message = 'Product Published!';
+        }
+        $product->save();
+        return redirect()->route('admin.products.index')->with('success', $message);
     }
 
     /**
@@ -85,6 +126,17 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if ($product->image ){
+            if (file_exists($product->image )){
+                unlink($product->image );
+            }
+        }
+        if ($product->other_images){
+            if (file_exists($product->other_images)){
+                unlink($product->other_images);
+            }
+        }
+        $product->delete();
+        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully!');
     }
 }
