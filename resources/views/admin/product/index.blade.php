@@ -25,11 +25,11 @@
             <!-- start page title -->
             <div class="row">
                 <div class="col-xl-12 m-auto ">
-                    <div class="card " >
+                    <div class="card ">
                         <div class="card-body">
                             <h4 class="card-title mb-5">Manage Product</h4>
 
-                            <table class="table">
+                            <table class="table p-5">
                                 <thead>
                                     <tr>
                                         <th>SL</th>
@@ -38,10 +38,9 @@
                                         <th>Product Model</th>
                                         <th>Regular Price</th>
                                         <th>Selling Price</th>
-                                        <th style="width: 18%">Image</th>
-                                        <th style="width: 18%">Description</th>
+                                        <th style="">Image</th>
                                         <th>Status</th>
-                                        <th style="width: 10%">Action</th>
+                                        <th style="width: 13%">Action</th>
                                     </tr>
                                 </thead>
 
@@ -56,13 +55,15 @@
                                     <td>{{ $item->selling_price }}</td>
                                     <td>
                                         <img src="{{ asset($item->image) }}" width="100" height="60" alt="">
-                                        @foreach(explode('|', $item->other_images) as $image)
-                                            <img src="{{ asset($image) }}" width="100" height="60" alt="">
-                                        @endforeach
+{{--                                        @foreach(explode('|', $item->other_images) as $image)--}}
+{{--                                            <img src="{{ asset($image) }}" width="100" height="60" alt="">--}}
+{{--                                        @endforeach--}}
                                     </td>
-                                    <td>{{ $item->short_description }}</td>
                                     <td><span class="badge bg-{{ $item->status === 1 ? 'success' : 'secondary' }}">{{ $item->status === 1 ? 'Published' : 'Unpublished' }}</span></td>
                                     <td >
+                                        <a href="{{ route('admin.products.show', $item->slug) }}" title="Details" class="btn btn-primary">
+                                            <span><i class="fas far fa-eye"></i></span>
+                                        </a>
                                         <a href="{{ route('admin.products.status', $item->slug) }}" title="{{ $item->status === 1 ? 'Make Unpublished' : 'Make Published' }}" class="btn btn-{{ $item->status === 1 ? 'secondary' : 'success' }}">
                                             <span><i class="fas far fa-thumbs-{{ $item->status === 1 ? 'down' : 'up' }}"></i></span>
                                         </a>
